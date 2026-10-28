@@ -1,0 +1,46 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: httpd-deployment
+  namespace: httpd-app
+  labels:
+    app: httpd
+spec:
+  replicas: 4
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: httpd
+  strategy:
+    canary:
+      steps:
+      - setWeight: 25
+      - pause: {} # Pauses indefinitely until manually promoted in Argo CD UI
+      - setWeight: 50
+      - pause: { duration: 30s }
+      - setWeight: 75
+      - pause: { duration: 30s }
+  template:
+    metadata:
+      labels:
+        app: httpd
+    spec:
+      containers:
+      - name: httpd
+        image: registry.redhat.io/ubi8/httpd-24
+        ports:
+        - containerPort: 8080
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "64Mi"
+          limits:
+            cpu: "250m"
+            memory: "128Mi"
+        volumeMounts:
+        - name: html-volume
+          mountPath: /var/www/html
+      volumes:
+      - name: html-volume
+        configMap:
+          name: httpd-html-content
