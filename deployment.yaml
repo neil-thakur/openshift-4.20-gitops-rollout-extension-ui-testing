@@ -1,36 +1,36 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: httpd-deployment
-  namespace: httpd-app
-  labels:
-    app: httpd
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: httpd
-  template:
-    metadata:
-      labels:
-        app: httpd
-    spec:
-      containers:
-      - name: httpd
-        image: registry.redhat.io/ubi8/httpd-24
-        ports:
-        - containerPort: 8080
-        resources:
-          requests:
-            cpu: "100m"
-            memory: "64Mi"
-          limits:
-            cpu: "250m"
-            memory: "128Mi"
-        volumeMounts:
-        - name: html-volume
-          mountPath: /var/www/html
-      volumes:
-      - name: html-volume
-        configMap:
-          name: httpd-html-content
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: httpd-deployment
+#   namespace: httpd-app
+#   labels:
+#     app: httpd
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: httpd
+#   template:
+#     metadata:
+#       labels:
+#         app: httpd
+#     spec:
+#       containers:
+#       - name: httpd
+#         image: registry.redhat.io/ubi8/httpd-24
+#         ports:
+#         - containerPort: 8080
+#         resources:
+#           requests:
+#             cpu: "100m"
+#             memory: "64Mi"
+#           limits:
+#             cpu: "250m"
+#             memory: "128Mi"
+#         volumeMounts:
+#         - name: html-volume
+#           mountPath: /var/www/html
+#       volumes:
+#       - name: html-volume
+#         configMap:
+#           name: httpd-html-content
