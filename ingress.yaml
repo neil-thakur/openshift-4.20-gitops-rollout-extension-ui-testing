@@ -5,6 +5,9 @@ metadata:
   namespace: httpd-app
   labels:
     app: httpd
+  annotations:
+    # Allows direct HTTP access without redirecting to HTTPS
+    route.openshift.io/termination: "edge"
 spec:
   ingressClassName: openshift-default
   rules:
