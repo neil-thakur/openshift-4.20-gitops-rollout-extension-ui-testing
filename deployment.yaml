@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: httpd-deployment
-  namespace: default
+  namespace: httpd-app
   labels:
     app: httpd
 spec:
