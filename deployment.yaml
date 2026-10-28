@@ -18,6 +18,12 @@ spec:
       containers:
       - name: httpd
         image: httpd:2.4.69
+        command:
+          - /bin/sh
+          - -c
+          - |
+            sed -i 's/Listen 80/Listen 8080/' /usr/local/apache2/conf/httpd.conf
+            httpd-foreground
         ports:
         - containerPort: 80
         resources:
