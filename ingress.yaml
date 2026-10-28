@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: httpd-ingress
+  namespace: httpd-app
+  labels:
+    app: httpd
+spec:
+  ingressClassName: openshift-default
+  rules:
+  - host: httpd.apps.cluster-k9hv2.k9hv2.sandbox519.opentlc.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: httpd-service
+            port:
+              name: http
