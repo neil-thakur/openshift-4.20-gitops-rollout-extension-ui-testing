@@ -11,5 +11,5 @@ spec:
     app: httpd
   ports:
   - name: http
-    port: 8080
+    port: 80          #Ingress gets HTTP traffic, port 80
     targetPort: 8080  #Container's listening port
