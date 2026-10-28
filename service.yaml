@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: httpd-service
+  namespace: httpd-app
+  labels:
+    app: httpd
+spec:
+  type: ClusterIP
+  selector:
+    app: httpd
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8080
